@@ -25,7 +25,20 @@ html.embed .app{max-width:none}
 
 /* top bar */
 .bar{flex:none;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid var(--line);background:#fff;position:relative;z-index:5}
-.bar h1{font-size:20px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:6px}
+.bar h1{font-size:20px;font-weight:600;color:var(--ink)}
+.carbtn{font:inherit;color:inherit;display:flex;align-items:center;gap:6px;height:40px;padding:0 10px 0 14px;border-radius:20px}
+.carbtn:active,.carbtn[aria-expanded=true]{background:var(--soft)}
+.carbtn svg{transition:transform .2s}
+.carbtn[aria-expanded=true] svg{transform:rotate(180deg)}
+.cars{margin-top:12px}
+.carrow{width:100%;display:flex;align-items:center;gap:14px;padding:10px 4px;border-bottom:1px solid var(--line);text-align:left;font:inherit;color:inherit}
+.carrow img,.carrow .th{width:72px;height:54px;border-radius:6px;object-fit:cover;flex:none;background:var(--soft);display:grid;place-items:center}
+.carrow .t{flex:1;min-width:0}
+.carrow b{display:block;font-size:16px;font-weight:700;color:var(--ink)}
+.carrow small{display:block;font-size:13px;color:var(--mute);margin-top:2px}
+.carrow .ck{width:24px;height:24px;border-radius:50%;background:var(--ink2);display:grid;place-items:center;flex:none}
+.carrow.add{border:0;color:var(--mute);font-weight:700;font-size:14px}
+.carrow.add .th{border:1.5px dashed #cfd2d8;background:#fff;color:#9aa0ab}
 .bar h1 small{font-size:11px;color:var(--faint);font-weight:700}
 .ib{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;position:relative}
 .ib:active{background:var(--soft)}
@@ -42,13 +55,14 @@ html.embed .app{max-width:none}
 
 /* overview */
 .hero{text-align:center;padding:22px 16px 8px}
-.carimg{width:120px;height:90px;margin:0 auto;border-radius:6px;object-fit:cover;box-shadow:0 6px 16px -8px rgba(0,0,0,.4);background:var(--soft)}
-.carph{width:120px;height:90px;margin:0 auto;border-radius:6px;background:linear-gradient(180deg,#f3f5f8,#e4e8ee);display:grid;place-items:center}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px}
-.stats small{display:block;font-size:12px;color:var(--mute)}
-.stats b{display:block;font-size:15px;font-weight:600;color:var(--ink2);margin-top:4px}
-.stats button{border-radius:8px;padding:4px 0}
-.stats button:active{background:var(--soft)}
+.carimg{width:160px;height:120px;margin:0 auto;border-radius:6px;object-fit:cover;box-shadow:0 6px 16px -8px rgba(0,0,0,.4);background:var(--soft)}
+.carph{width:160px;height:120px;margin:0 auto;border-radius:6px;background:linear-gradient(180deg,#f3f5f8,#e4e8ee);display:grid;place-items:center}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);align-items:stretch;margin:18px 4px 0}
+.stat{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;padding:6px 4px;font:inherit;color:inherit;border-radius:8px;position:relative}
+.stat+.stat::before{content:"";position:absolute;left:0;top:10px;bottom:10px;border-left:1px solid var(--line)}
+.stat small{display:block;font-size:12px;line-height:16px;color:var(--mute);white-space:nowrap}
+.stat b{display:block;font-size:16px;line-height:22px;font-weight:700;color:var(--ink2);white-space:nowrap}
+button.stat:active{background:var(--soft)}
 .mon{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-top:1px solid var(--line);margin-top:16px}
 .mon h2{font-size:16px;font-weight:600;color:#000}
 .mon button{width:40px;height:40px;display:grid;place-items:center;border-radius:50%}
@@ -132,7 +146,35 @@ html.embed .form{max-width:none}
 
 /* map */
 .map{position:absolute;inset:0;overflow:hidden;background:#eef0f2}
-.map svg.base{position:absolute;left:50%;top:50%;width:760px;height:900px;transform:translate(-50%,-50%)}
+.world{position:absolute;left:0;top:0;transform-origin:0 0;transition:transform .55s cubic-bezier(.3,.8,.3,1)}
+.world svg.base{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.rt-case{stroke:#fff;stroke-width:9;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.rt{stroke:#4264fb;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.rt.prev{stroke:#7d95ff}
+.navcar{position:absolute;z-index:3;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#4264fb;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);display:grid;place-items:center}
+.dir{position:absolute;left:0;right:0;bottom:0;z-index:4;background:#fff;border-radius:16px 16px 0 0;box-shadow:0 -6px 20px rgba(0,0,0,.12);padding:14px 18px 16px;max-height:52%;display:flex;flex-direction:column;transform:translateY(110%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.dir.on{transform:none}
+.dir .hd{display:flex;align-items:flex-start;gap:10px}
+.dir .hd .t{flex:1}
+.dir .eta{font-size:20px;font-weight:800;color:var(--svc)}
+.dir .eta span{color:var(--mute);font-weight:600;font-size:15px}
+.dir .via{font-size:13px;color:var(--mute);margin-top:2px}
+.dir .x{width:32px;height:32px;border-radius:50%;background:var(--soft);display:grid;place-items:center;flex:none}
+.steps{list-style:none;overflow-y:auto;margin:10px -18px 0;padding:0 18px;border-top:1px solid var(--line)}
+.steps li{display:flex;gap:14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink2)}
+.steps li:last-child{border:0}
+.steps li .ic{width:28px;height:28px;flex:none;display:grid;place-items:center}
+.steps li .tx{flex:1}
+.steps li small{display:block;font-size:12px;color:var(--mute);margin-top:1px}
+.steps li.cur{color:#000;font-weight:700}
+.dir .go{display:flex;gap:10px;margin-top:12px}
+.dir .go button{flex:1;height:42px;border-radius:21px;font:inherit;font-weight:800;font-size:14px}
+.dir .go .start{background:#4264fb;color:#fff}
+.dir .go .sec{border:1.5px solid var(--ink2);color:var(--ink2)}
+.banner{position:absolute;left:10px;right:10px;top:10px;z-index:5;background:#1f7a4d;color:#fff;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 6px 16px rgba(0,0,0,.2);transform:translateY(-140%);transition:transform .3s}
+.banner.on{transform:none}
+.banner b{display:block;font-size:17px;font-weight:800;line-height:22px}
+.banner small{display:block;font-size:13px;opacity:.85}
 .mchips{position:absolute;left:12px;right:12px;top:12px;display:flex;gap:8px;z-index:3}
 .mchip{height:32px;padding:0 12px;border-radius:16px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.12);font-size:13px;font-weight:700;color:var(--mute);display:flex;align-items:center;gap:6px}
 .mchip i{width:9px;height:9px;border-radius:50%}
@@ -149,7 +191,6 @@ html.embed .form{max-width:none}
 .pcard b{display:block;font-size:14px;font-weight:800;color:#343c4d}
 .pcard small{display:block;font-size:13px;color:#343c4d;line-height:18px}
 .pcard .mini{width:60px;height:34px;border-radius:17px;border:1.5px solid #000;display:grid;place-items:center;background:#fff}
-.route{position:absolute;inset:0;z-index:1;pointer-events:none}
 
 /* sheets, drawer, toast */
 .scrim{position:fixed;inset:0;z-index:60;background:rgba(20,20,28,.4);opacity:0;pointer-events:none;transition:opacity .25s}
@@ -201,7 +242,7 @@ html.embed .sheet{max-width:none}
 <div class="app" id="app">
   <header class="bar">
     <button class="ib" data-menu aria-label="Open menu"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="#2d2d32" stroke-width="1.5" stroke-linecap="round"><path d="M1 1h16M1 7h16M1 13h16"/></svg></button>
-    <h1 id="carName">Accord</h1>
+    <h1><button class="carbtn" data-switch aria-haspopup="dialog" aria-expanded="false" aria-label="Switch car"><span id="carName">Accord</span><svg width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="#2d2d32" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m1 1.5 5 5 5-5"/></svg></button></h1>
     <button class="ib" data-bell aria-label="Reminders"><svg width="18" height="20" viewBox="0 0 18 20" fill="#2d2d32"><path d="M9 20a2.3 2.3 0 0 0 2.3-2.3H6.7A2.3 2.3 0 0 0 9 20Zm7-6V9a7 7 0 0 0-5.3-6.8V1.7a1.7 1.7 0 0 0-3.4 0v.5A7 7 0 0 0 2 9v5l-2 2v1h18v-1l-2-2Z"/></svg><span class="badge" id="bellN">3</span></button>
   </header>
   <main class="pager" id="pager" aria-label="Screens">
@@ -240,40 +281,75 @@ const CAT = {
 };
 const CATS = Object.keys(CAT);
 const CARS = {
-  accord:{name:'Accord', model:'Honda Accord 2016', img:'img/accord.webp', km:16523, value:650000},
-  camry:{name:'Camry', model:'Toyota Camry 2014', img:null, km:48210, value:420000}
+  accord:{name:'Accord', model:'Honda Accord 2.4 · 2016', img:'img/accord.webp', km:19640, value:2150000, ins:'2 Jan', insDays:25},
+  camry:{name:'Camry', model:'Toyota Camry 2.4 · 2008', img:'https://images.unsplash.com/photo-1664287721774-13da4b108b18?w=480&h=360&fit=crop&crop=entropy&q=70&auto=format', km:96410, value:320000, ins:'14 Mar', insDays:96}
 };
 let uid=0;
 const E = (car,cat,title,place,m,d,amt)=>({id:++uid,car,cat,title,place,m,d,amt});
+/* sample data for 2017: fuel is litres x that month's Bangalore petrol price, so totals add up to a believable year */
+const PRICE=[70.9,71.4,71.6,70.8,69.9,68.7,66.5,68.8,71.3,70.6,70.9,71.8];
+function seeded(a){ return ()=>{ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function fuel(car, stations, fills, lo, hi, seed){
+  const r=seeded(seed), out=[];
+  for(let m=0;m<=11;m++){
+    const n = m===11 ? 1 : fills(m);
+    for(let k=0;k<n;k++){
+      const d = m===11 ? 3 : Math.min(28, Math.round(3 + k*(26/n) + r()*5));
+      let L = lo + r()*(hi-lo), amt = Math.round(L*PRICE[m]);
+      if(r()<.4){ amt = Math.round(amt/500)*500; }            // "fill for ₹2,000"
+      L = amt/PRICE[m];
+      out.push(E(car,'gas',`Petrol · ${L.toFixed(1)} L`, stations[Math.floor(r()*stations.length)], m, d, amt));
+    }
+  }
+  return out;
+}
 const EXP = [
-  // Accord
-  E('accord','gas','Gas','BP Brooklyn',10,4,1800), E('accord','gas','Gas','Shell, Koramangala',10,12,2200), E('accord','gas','Gas','BP Brooklyn',10,22,2400),
-  E('accord','service','Car wash','Sparkle Car Spa',10,18,450), E('accord','service','General service','Honda Service, HSR',10,9,6800),
-  E('accord','repair','Tyre fix','Raju Tyres',10,26,350), E('accord','repair','Wiper blades','Car Mall',10,15,900),
-  E('accord','gas','Gas','Reliance, Ejipura',9,6,2100), E('accord','gas','Gas','BP Brooklyn',9,20,2300), E('accord','service','Car wash','Sparkle Car Spa',9,14,450), E('accord','repair','Battery','Amaron Point',9,27,5400),
-  E('accord','gas','Gas','Shell, Koramangala',8,3,1900), E('accord','gas','Gas','BP Brooklyn',8,17,2250), E('accord','service','Wheel alignment','Tyre Plus',8,11,800),
-  E('accord','gas','Gas','Reliance, Ejipura',11,2,2000), E('accord','service','Car wash','Sparkle Car Spa',11,5,450),
-  // Camry
-  E('camry','gas','Gas','Indian Oil, Indiranagar',10,7,2600), E('camry','gas','Gas','HP, Domlur',10,21,2500), E('camry','repair','Brake pads','Toyota Service, Whitefield',10,13,4200), E('camry','service','Oil change','Quick Lube',10,28,1600),
-  E('camry','gas','Gas','HP, Domlur',9,10,2700), E('camry','service','Car wash','Shine Wash',9,24,400)
+  // Accord: ~930 km a month at ~11 km/L in city traffic
+  ...fuel('accord',['Shell, Koramangala','Indian Oil, Ejipura','Shell, Koramangala','HP, Adugodi'], m=>3, 24, 33, 7),
+  ...[0,1,2,3,4,5,6,7,8,9,10].filter(m=>m!==6).map(m=>E('accord','service','Car wash','Sparkle Car Spa',m,[14,11,18,9,20,15,0,12,16,21,5][m],450)),
+  E('accord','service','10,000 km service','Honda Service, HSR',2,6,8940),
+  E('accord','service','AC service','Honda Service, HSR',4,13,2400),
+  E('accord','service','Wheel alignment','Tyre Plus, Koramangala',7,26,850),
+  E('accord','repair','Wiper blades','Car Mall Repairs',5,4,1150),
+  E('accord','repair','Dent & paint, rear door','Car Mall Repairs',8,23,4800),
+  E('accord','repair','Puncture repair','Raju Tyres',10,17,250),
+  E('accord','service','Car wash','Sparkle Car Spa',11,2,450),
+  // Camry: the older weekend car, ~620 km a month at ~9 km/L
+  ...fuel('camry',['HP, Domlur','Indian Oil, Ejipura','HP, Domlur'], m=>m%3===0?3:2, 22, 34, 21),
+  ...[1,3,5,8,10].map(m=>E('camry','service','Car wash','Shine Wash, Domlur',m,19,400)),
+  E('camry','repair','Battery (Amaron 55Ah)','Amaron Point',0,11,6400),
+  E('camry','service','95,000 km major service','Toyota Service, Koramangala',6,8,11200),
+  E('camry','repair','Suspension bushes','Car Mall Repairs',8,14,7800),
+  E('camry','repair','Front brake pads','Toyota Service, Koramangala',10,13,4200),
+  E('camry','repair','Puncture repair','Raju Tyres',3,27,200)
 ];
+
+/* ---- street map: a small road graph, drawn and routed on the same data ---- */
+const WW=400, WH=720, M_PER_UNIT=8;                 // world units, ~8 m each
+const COLS=[{x:40,n:'Adugodi Main Rd',w:7},{x:140,n:'8th Main Rd',w:7},{x:250,n:'100 Feet Rd',w:11},{x:360,n:'Ejipura Main Rd',w:7}];
+const ROWS=[{y:100,n:'Intermediate Ring Rd',w:11},{y:240,n:'80 Feet Rd',w:10},{y:380,n:'Sarjapur Rd',w:11},{y:520,n:'17th Main Rd',w:7},{y:650,n:'Hosur Rd',w:11}];
+const node=(i,j)=>({x:COLS[i].x+(j-2)*7, y:ROWS[j].y-(i-1.5)*9});
+const EDGES=[];   // {a:[i,j], b:[i,j], street}
+COLS.forEach((c,i)=>{ for(let j=0;j<ROWS.length-1;j++){ if(i===1&&j===2) continue; EDGES.push({a:[i,j],b:[i,j+1],street:c.n,w:c.w}); } });  // park blocks 8th Main
+ROWS.forEach((r,j)=>{ for(let i=0;i<COLS.length-1;i++){ if(j===3&&i===2) continue; EDGES.push({a:[i,j],b:[i+1,j],street:r.n,w:r.w}); } });  // lake blocks 17th Main
+const onEdge=(ai,aj,bi,bj,t)=>{ const e=EDGES.findIndex(e=>e.a[0]===ai&&e.a[1]===aj&&e.b[0]===bi&&e.b[1]===bj); const A=node(ai,aj),B=node(bi,bj); return {e, t, x:A.x+(B.x-A.x)*t, y:A.y+(B.y-A.y)*t}; };
 const PLACES = [
-  {cat:'gas', name:'Reliance', info:'Petrol ₹101.9/L · open 24 hrs', km:1.2, x:.46, y:.24, phone:'+91 80 4115 2231'},
-  {cat:'gas', name:'Shell, Koramangala', info:'Petrol ₹102.4/L · car wash on site', km:2.4, x:.78, y:.62, phone:'+91 80 4101 7788'},
-  {cat:'repair', name:'Raju Tyres', info:'Puncture repair · from ₹150', km:0.9, x:.25, y:.45, phone:'+91 98450 32211'},
-  {cat:'repair', name:'Car Mall Repairs', info:'Dents, paint, batteries · 4.5★', km:3.1, x:.18, y:.78, phone:'+91 80 4222 9010'},
-  {cat:'service', name:'Sparkle Car Spa', info:'Car wash from ₹450 · 4.6★', km:1.8, x:.72, y:.36, phone:'+91 99720 11445'},
-  {cat:'service', name:'Honda Service, HSR', info:'Authorised service centre', km:4.6, x:.56, y:.86, phone:'+91 80 4333 6000'}
+  {cat:'gas', name:'Indian Oil, Ejipura', info:'Petrol ₹71.8/L · open 24 hrs', at:onEdge(3,0,3,1,.55), phone:'+91 80 4115 2231'},
+  {cat:'gas', name:'Shell, Koramangala', info:'Petrol ₹72.1/L · car wash on site', at:onEdge(1,1,2,1,.6), phone:'+91 80 4101 7788'},
+  {cat:'repair', name:'Raju Tyres', info:'Puncture repair · from ₹150', at:onEdge(0,1,0,2,.5), phone:'+91 98450 32211'},
+  {cat:'repair', name:'Car Mall Repairs', info:'Dents, paint, batteries · 4.5★', at:onEdge(0,4,1,4,.55), phone:'+91 80 4222 9010'},
+  {cat:'service', name:'Sparkle Car Spa', info:'Car wash from ₹450 · 4.6★', at:onEdge(3,2,3,3,.45), phone:'+91 99720 11445'},
+  {cat:'service', name:'Honda Service, HSR', info:'Authorised service centre', at:onEdge(2,4,3,4,.6), phone:'+91 80 4333 6000'}
 ];
-const ME = {x:.52, y:.52};
+const ME = onEdge(1,2,2,2,.45);
 const TODAY = {m:11, d:8};   // prototype "today": 8 Dec
-const S = { car:'accord', m:10, filter:'all', page:0, place:null, mapFilter:'all', seen:false, draft:null, lastNew:null };
+const S = { car:'accord', m:10, filter:'all', page:0, place:null, mapFilter:'all', seen:false, draft:null, lastNew:null, dir:false, nav:null };
 
 /* ---------------- helpers ---------------- */
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
-const short=n=> n>=100000 ? '₹'+(n/100000).toFixed(n%100000?1:0)+' Lac' : n>=1000 ? '₹'+(n/1000).toFixed(2).replace(/\.?0+$/,'')+'K' : inr(n);
+const short=n=> n>=100000 ? '₹'+(n/100000).toFixed(2).replace(/\.?0+$/,'')+' Lac' : n>=1000 ? '₹'+(n/1000).toFixed(1).replace(/\.0$/,'')+'K' : inr(n);
 const car=()=>CARS[S.car];
 const monthExp=(m=S.m)=>EXP.filter(e=>e.car===S.car&&e.m===m);
 const sumBy=(list,cat)=>list.filter(e=>!cat||e.cat===cat).reduce((a,e)=>a+e.amt,0);
@@ -313,9 +389,9 @@ function overview(){
     <div class="hero">
       ${c.img?`<img class="carimg" src="${c.img}" alt="${esc(c.model)}">`:`<div class="carph">${IC.car('#9aa0ab')}</div>`}
       <div class="stats">
-        <div><small>Distance driven</small><b>${c.km.toLocaleString('en-IN')} Kms</b></div>
-        <button data-page="1"><small>Total spending</small><b>${short(sumBy(all))}</b></button>
-        <div><small>Valued at</small><b>${short(c.value)}</b></div>
+        <div class="stat"><small>Distance driven</small><b>${c.km.toLocaleString('en-IN')} Kms</b></div>
+        <button class="stat" data-page="1"><small>Spent in 2017</small><b>${short(sumBy(all))}</b></button>
+        <div class="stat"><small>Valued at</small><b>${short(c.value)}</b></div>
       </div>
     </div>
     <div class="mon"><button data-mon="-1" aria-label="Previous month" ${S.m<=minMonth()?'disabled':''}>${IC.left}</button><h2>${MONTHS[S.m]}</h2><button data-mon="1" aria-label="Next month" ${S.m>=maxMonth()?'disabled':''}>${IC.right}</button></div>
@@ -339,39 +415,155 @@ function expenses(){
 }
 
 /* ---------------- map ---------------- */
+const P=(x,y)=>`${x.toFixed(1)} ${y.toFixed(1)}`;
+function roadLine(pts){ return pts.map((q,k)=>(k?'L':'M')+P(q.x,q.y)).join(''); }
 function mapSvg(){
-  // a quiet, hand-drawn city map (no real map tiles)
-  let roads='', blocks='';
-  const rnd=(i)=>((Math.sin(i*99.13)+1)/2);
-  for(let i=0;i<60;i++){ const x=40+(i%10)*72+rnd(i)*20, y=40+Math.floor(i/10)*140+rnd(i+7)*30; blocks+=`<rect x="${x}" y="${y}" width="${40+rnd(i+3)*20}" height="${60+rnd(i+5)*50}" rx="3" fill="#e2e5e9"/>`; }
-  roads += '<path d="M-20 300 C 200 260 420 380 780 330" stroke="#fff" stroke-width="18" fill="none"/>';
-  roads += '<path d="M260 -20 C 300 250 220 520 330 920" stroke="#fff" stroke-width="16" fill="none"/>';
-  roads += '<path d="M-20 640 L 780 560" stroke="#fff" stroke-width="12" fill="none"/>';
-  roads += '<path d="M540 -20 L 470 920" stroke="#fff" stroke-width="12" fill="none"/>';
-  roads += '<path d="M60 -20 C 120 300 40 600 120 920" stroke="#fff" stroke-width="8" fill="none"/>';
-  roads += '<path d="M-20 120 L 780 170 M-20 470 L 780 450 M-20 800 L 780 760 M680 -20 L 700 920 M400 -20 L 380 920" stroke="#fff" stroke-width="6" fill="none"/>';
-  const lab=(x,y,t,s=13)=>`<text x="${x}" y="${y}" font-size="${s}" letter-spacing="2" fill="#a3a8b2" font-family="Nunito Sans,sans-serif" font-weight="700">${t}</text>`;
-  return `<svg class="base" viewBox="0 0 760 900" aria-hidden="true"><rect width="760" height="900" fill="#eef0f2"/>${blocks}<path d="M600 60 q60 40 40 120 t60 160" stroke="#cfe3f3" stroke-width="10" fill="none"/>${roads}
-    ${lab(150,230,'NEELASANDRA')}${lab(430,250,'EJIPURA')}${lab(110,420,'ADUGODI')}${lab(330,520,'KORAMANGALA',15)}${lab(520,720,'ST BED LAYOUT',11)}${lab(120,720,'SADGUNTE PALYA',11)}</svg>`;
+  const rnd=i=>((Math.sin(i*99.13)+1)/2);
+  let blocks='';
+  // building blocks fill the gaps between streets (extends past the edges so panning never shows a hard border)
+  const xs=[-200,...COLS.map(c=>c.x),600], ys=[-200,...ROWS.map(r=>r.y),920];
+  for(let a=0;a<xs.length-1;a++) for(let b=0;b<ys.length-1;b++){
+    const x0=xs[a]+12,x1=xs[a+1]-12,y0=ys[b]+12,y1=ys[b+1]-12, k=a*10+b;
+    if((a===1||a===2)&&b===3) continue;   // park goes here
+    const nx=Math.max(1,Math.round((x1-x0)/48)), ny=Math.max(1,Math.round((y1-y0)/44)), gw=(x1-x0)/nx, gh=(y1-y0)/ny;
+    for(let u=0;u<nx;u++) for(let v=0;v<ny;v++){ const r=rnd(k*31+u*7+v); if(r<.12) continue;
+      blocks+=`<rect x="${(x0+u*gw+3).toFixed(1)}" y="${(y0+v*gh+3).toFixed(1)}" width="${(gw-6-r*6).toFixed(1)}" height="${(gh-6-rnd(k+u+v*3)*8).toFixed(1)}" rx="3" fill="#e2e5e9"/>`; }
+  }
+  blocks+=`<rect x="${COLS[0].x+14}" y="${ROWS[2].y+14}" width="${COLS[2].x-COLS[0].x-28}" height="${ROWS[3].y-ROWS[2].y-28}" rx="12" fill="#d7ecd6"/>`;
+  const lake=`<ellipse cx="${(COLS[2].x+COLS[3].x)/2}" cy="${ROWS[3].y+4}" rx="42" ry="58" fill="#cfe3f3"/>`;
+  // roads: every column and row as one polyline through its nodes, extended off-map
+  let casing='', roads='', labels='';
+  COLS.forEach((c,i)=>{ const pts=ROWS.map((r,j)=>node(i,j)); const d=roadLine([{x:pts[0].x-10,y:-220},...pts,{x:pts[4].x+10,y:940}]);
+    casing+=`<path d="${d}" stroke="#dcdfe4" stroke-width="${c.w+2}" fill="none"/>`; roads+=`<path d="${d}" stroke="#fff" stroke-width="${c.w}" fill="none"/>`;
+    const q=node(i,1), q2=node(i,2); labels+=`<text transform="translate(${(q.x+q2.x)/2+ (c.w/2+5)} ${(q.y+q2.y)/2+ (i===1?-20:30)}) rotate(90)" class="sl">${c.n}</text>`; });
+  ROWS.forEach((r,j)=>{ const pts=COLS.map((c,i)=>node(i,j)); const d=roadLine([{x:-220,y:pts[0].y+20},...pts,{x:620,y:pts[3].y-24}]);
+    casing+=`<path d="${d}" stroke="#dcdfe4" stroke-width="${r.w+2}" fill="none"/>`; roads+=`<path d="${d}" stroke="#fff" stroke-width="${r.w}" fill="none"/>`;
+    const q=node(1,j), q2=node(2,j); labels+=`<text x="${(q.x+q2.x)/2}" y="${(q.y+q2.y)/2 - r.w/2 - 4}" text-anchor="middle" class="sl">${r.n}</text>`; });
+  // hide the removed street pieces (park, lake) by painting over them
+  const gap=(A,B,fill,w)=>`<path d="M${P(A.x,A.y)}L${P(B.x,B.y)}" stroke="${fill}" stroke-width="${w}" stroke-linecap="butt" fill="none"/>`;
+  const park=gap(node(1,2),node(1,3),'#d7ecd6',16).replace(/M([\d.]+) ([\d.]+)L([\d.]+) ([\d.]+)/,(m,a,b,c,d)=>`M${a} ${+b+8}L${c} ${+d-8}`);
+  const lab=(x,y,t)=>`<text x="${x}" y="${y}" class="al">${t}</text>`;
+  return `<svg class="base" viewBox="0 0 ${WW} ${WH}" aria-hidden="true">
+    <style>.sl{font:700 8px 'Nunito Sans',sans-serif;fill:#9ba1ab;letter-spacing:.3px}.al{font:800 10px 'Nunito Sans',sans-serif;fill:#b3b8c1;letter-spacing:2px;text-anchor:middle}</style>
+    <rect x="-400" y="-400" width="1200" height="1520" fill="#eef0f2"/>${blocks}${casing}${roads}${park}${lake}
+    ${labels}${lab(90,175,'ADUGODI')}${lab(305,175,'EJIPURA')}${lab(195,315,'KORAMANGALA')}${lab(195,455,'PARK')}${lab(305,470,'LAKE')}${lab(90,590,'S G PALYA')}${lab(305,595,'ST BED')}
+    <g id="routeG"></g></svg>`;
 }
+
+/* shortest path on the road graph (Dijkstra, a handful of nodes) */
+const key=(i,j)=>i+','+j, dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+function route(from, to){
+  const adj={}, pos={};
+  const add=(u,v,w,street)=>{ (adj[u]=adj[u]||[]).push({v,w,street}); (adj[v]=adj[v]||[]).push({v:u,w,street}); };
+  EDGES.forEach((e,k)=>{ const A=key(...e.a), B=key(...e.b); pos[A]=node(...e.a); pos[B]=node(...e.b);
+    const cuts=[from,to].filter(q=>q.e===k).sort((p,q)=>p.t-q.t);
+    let prev=A, pp=pos[A];
+    cuts.forEach(q=>{ const id=q===from?'S':'T'; pos[id]=q; add(prev,id,dist(pp,q),e.street); prev=id; pp=q; });
+    add(prev,B,dist(pp,pos[B]),e.street); });
+  const D={S:0}, prv={}, done=new Set();
+  while(true){ let u=null; for(const k in D) if(!done.has(k)&&(u===null||D[k]<D[u])) u=k; if(u===null||u==='T') break; done.add(u);
+    for(const {v,w,street} of adj[u]||[]){ if(D[u]+w<(D[v]??Infinity)){ D[v]=D[u]+w; prv[v]={u,street}; } } }
+  const ids=['T'], streets=[]; while(ids[0]!=='S'){ streets.unshift(prv[ids[0]].street); ids.unshift(prv[ids[0]].u); }
+  const pts=ids.map(id=>pos[id]);
+  // group into steps along the same street
+  const legs=[]; for(let k=0;k<streets.length;k++){ const L=dist(pts[k],pts[k+1]); const last=legs[legs.length-1];
+    if(last&&last.street===streets[k]){ last.len+=L; last.to=pts[k+1]; } else legs.push({street:streets[k],len:L,from:pts[k],to:pts[k+1]}); }
+  const heading=l=>({x:l.to.x-l.from.x,y:l.to.y-l.from.y});
+  const steps=legs.map((l,k)=>{ const h=heading(l);
+    if(k===0){ const dir=Math.abs(h.x)>Math.abs(h.y)?(h.x>0?'east':'west'):(h.y>0?'south':'north'); return {turn:'start',text:`Head ${dir} on ${l.street}`,len:l.len}; }
+    const g=heading(legs[k-1]), cr=g.x*h.y-g.y*h.x; const turn=cr>0?'right':'left';
+    return {turn,text:`Turn ${turn} onto ${l.street}`,len:l.len}; });
+  const total=legs.reduce((a,l)=>a+l.len,0)*M_PER_UNIT;
+  steps.push({turn:'end',text:'Arrive at destination',len:0});
+  return {pts, steps, meters:total, mins:Math.max(2,Math.round(total/1000/17*60 + (steps.length-2)*.7)), via:legs.slice().sort((a,b)=>b.len-a.len)[0].street};
+}
+PLACES.forEach(p=>{ p.r=route(ME,p.at); p.km=(p.r.meters/1000).toFixed(1); });
+const fmtLen=m=> m>=1000 ? (m/1000).toFixed(1)+' km' : (Math.round(m/10)*10)+' m';
+const TURN={
+  start:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d2d32" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V5M6 10l6-6 6 6"/></svg>',
+  left:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d2d32" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-8a3 3 0 0 0-3-3H5M9 6l-4 4 4 4"/></svg>',
+  right:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d2d32" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21v-8a3 3 0 0 1 3-3h9M15 6l4 4-4 4"/></svg>',
+  end:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5353" stroke-width="2.2" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5" fill="#ff5353"/></svg>'
+};
+const white=s=>s.replaceAll('#2d2d32','#fff').replaceAll('#ff5353','#fff');
+
 function mapPage(){
-  $('#p2').innerHTML = `<div class="map" id="map">${mapSvg()}
-    <svg class="route" id="route" preserveAspectRatio="none"></svg>
+  $('#p2').innerHTML = `<div class="map" id="map">
+    <div class="world" id="world">${mapSvg()}
+      ${PLACES.map((p,i)=>`<button class="pin ${S.place===i?'sel':''} ${S.mapFilter!=='all'&&S.mapFilter!==p.cat?'hide':''}" data-place="${i}" data-x="${p.at.x}" data-y="${p.at.y}" aria-label="${esc(p.name)}">${ci(p.cat, i===S.place?'fill':'line')}</button>`).join('')}
+      <div class="me" data-x="${ME.x}" data-y="${ME.y}"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6z"/></svg></span></div>
+      <div class="navcar" id="navcar" hidden><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2 20 21l-8-4-8 4Z"/></svg></div>
+    </div>
     <div class="mchips">${['all',...CATS].map(f=>`<button class="mchip ${S.mapFilter===f?'on':''}" data-mf="${f}">${f==='all'?'All':`<i style="background:${CAT[f].color}"></i>${CAT[f].label}`}</button>`).join('')}</div>
-    ${PLACES.map((p,i)=>`<button class="pin ${S.place===i?'sel':''} ${S.mapFilter!=='all'&&S.mapFilter!==p.cat?'hide':''}" style="left:${p.x*100}%;top:${p.y*100}%" data-place="${i}" aria-label="${esc(p.name)}">${ci(p.cat, i===S.place?'fill':'line')}</button>`).join('')}
-    <div class="me" style="left:${ME.x*100}%;top:${ME.y*100}%"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6z"/></svg></span></div>
-    <div class="pcard ${S.place!=null?'on':''}" id="pcard">${S.place!=null?placeCard(PLACES[S.place]):''}</div>
+    <div class="banner" id="banner"></div>
+    <div class="pcard ${S.place!=null&&!S.dir?'on':''}" id="pcard">${S.place!=null?placeCard(PLACES[S.place]):''}</div>
+    <div class="dir ${S.dir?'on':''}" id="dir">${S.place!=null?dirPanel(PLACES[S.place]):''}</div>
   </div>`;
-  drawRoute();
+  layoutMap(false);
 }
-function placeCard(p){ return `<div class="t"><b>${esc(p.name)}</b><small>${esc(p.info)}</small><small>${p.km} Kms away</small></div><button class="mini" data-call aria-label="Call">${IC.phone}</button><button class="mini" data-nav aria-label="Directions">${IC.nav}</button>`; }
+function placeCard(p){ return `<div class="t"><b>${esc(p.name)}</b><small>${esc(p.info)}</small><small>${p.km} km · about ${p.r.mins} min by car</small></div><button class="mini" data-call aria-label="Call">${IC.phone}</button><button class="mini" data-nav aria-label="Directions">${IC.nav}</button>`; }
+function dirPanel(p){ const r=p.r;
+  return `<div class="hd"><div class="t"><div class="eta">${r.mins} min <span>(${fmtLen(r.meters)})</span></div><div class="via">Fastest route now, via ${esc(r.via)} · light traffic</div></div><button class="x" data-dirx aria-label="Close directions">${IC.x}</button></div>
+    <ol class="steps" id="steps">${r.steps.map((st,k)=>`<li data-k="${k}"><span class="ic">${TURN[st.turn]}</span><span class="tx">${st.turn==='end'?`Arrive at ${esc(p.name)}`:esc(st.text)}${st.len?`<small>${fmtLen(st.len*M_PER_UNIT)}</small>`:''}</span></li>`).join('')}</ol>
+    <div class="go"><button class="start" data-start>${S.nav?'End':'Start'}</button><button class="sec" data-call>Call</button></div>`; }
+
+// fit the world to the map box; when a route is shown, pan/zoom so the whole route sits above the bottom panel
+function layoutMap(animate=true){
+  const m=$('#map'), w=$('#world'); if(!m||!w) return;
+  const W=m.clientWidth, H=m.clientHeight;
+  const base=Math.max(W/WW, H/WH);
+  let k=base, cx=ME.x, cy=ME.y;
+  const top=56, panel = S.place==null ? 0 : (S.dir ? $('#dir').offsetHeight : $('#pcard').offsetHeight);
+  const vis={x:12,y:top,w:W-24,h:H-top-panel-12};
+  if(S.place!=null){
+    const pts=PLACES[S.place].r.pts, xs=pts.map(q=>q.x), ys=pts.map(q=>q.y);
+    const bx0=Math.min(...xs)-24, bx1=Math.max(...xs)+24, by0=Math.min(...ys)-30, by1=Math.max(...ys)+24;
+    k=Math.min(base*1.6, vis.w/(bx1-bx0), vis.h/(by1-by0)); k=Math.max(k, base*.55);
+    cx=(bx0+bx1)/2; cy=(by0+by1)/2;
+  } else { cx=WW/2; cy=WH/2; }
+  let tx = vis.x+vis.w/2 - cx*k, ty = (S.place!=null? vis.y+vis.h/2 : H/2) - cy*k;
+  if(S.place==null){ tx=Math.min(0,Math.max(W-WW*k,tx)); ty=Math.min(0,Math.max(H-WH*k,ty)); }
+  w.style.transition = animate ? '' : 'none';
+  w.style.width=WW+'px'; w.style.height=WH+'px';
+  w.style.transform=`translate(${tx}px,${ty}px) scale(${k})`;
+  // HTML markers keep their on-screen size: position in world units, counter-scale
+  w.querySelectorAll('[data-x]').forEach(el=>{ el.style.left=el.dataset.x+'px'; el.style.top=el.dataset.y+'px'; el.style.transform=`translate(-50%,-50%) scale(${(1/k).toFixed(3)})${el.classList.contains('sel')?' scale(1.25)':''}`; });
+  const nc=$('#navcar'); if(nc) nc.style.transform=`scale(${(1/k).toFixed(3)})`;
+  S.k=k; drawRoute();
+  if(!animate) requestAnimationFrame(()=>{ w.style.transition=''; });
+}
 function drawRoute(){
-  const r=$('#route'), m=$('#map'); if(!r||!m) return;
-  if(S.place==null){ r.innerHTML=''; return; }
-  const W=m.clientWidth,H=m.clientHeight,p=PLACES[S.place];
-  const x1=ME.x*W,y1=ME.y*H,x2=p.x*W,y2=p.y*H, mx=(x1+x2)/2+(y2-y1)*.2, my=(y1+y2)/2-(x2-x1)*.2;
-  r.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  r.innerHTML=`<path d="M${x1} ${y1} Q${mx} ${my} ${x2} ${y2}" stroke="#000" stroke-width="2.2" fill="none" stroke-dasharray="600" stroke-dashoffset="600"><animate attributeName="stroke-dashoffset" to="0" dur=".6s" fill="freeze"/></path>`;
+  const g=$('#routeG'); if(!g) return;
+  if(S.place==null){ g.innerHTML=''; return; }
+  const p=PLACES[S.place], d=roadLine(p.r.pts), sw=1/Math.max(.6,S.k||1);
+  g.innerHTML=`<path class="rt-case" d="${d}" style="stroke-width:${9*sw}"/><path class="rt ${S.dir?'':'prev'}" id="rtPath" d="${d}" style="stroke-width:${5*sw}"/>
+    <circle cx="${p.at.x}" cy="${p.at.y}" r="${6*sw}" fill="#fff" stroke="#2d2d32" stroke-width="${2.5*sw}"/>`;
+  const path=$('#rtPath'), L=path.getTotalLength(); path.style.strokeDasharray=L; path.style.strokeDashoffset=L;
+  path.getBoundingClientRect(); path.style.transition='stroke-dashoffset .7s ease'; path.style.strokeDashoffset=0;
+}
+function openDir(){ S.dir=true; mapPage(); }
+function closeDir(){ stopNav(); S.dir=false; mapPage(); }
+function stopNav(){ if(S.nav){ cancelAnimationFrame(S.nav.raf); S.nav=null; } }
+function startNav(){
+  const p=PLACES[S.place], path=$('#rtPath'); if(!path) return;
+  const L=path.getTotalLength(), steps=p.r.steps, car=$('#navcar'), banner=$('#banner');
+  // step boundaries along the path, in world units
+  const ends=[]; let acc=0; steps.forEach(st=>{ acc+=st.len; ends.push(acc); });
+  const dur=Math.min(14000, 3500+L*14), t0=performance.now();
+  car.hidden=false; S.nav={raf:0}; $('[data-start]').textContent='End'; $('#pcard').classList.remove('on');
+  const tick=now=>{
+    const f=Math.min(1,(now-t0)/dur), at=L*f, q=path.getPointAtLength(at), q2=path.getPointAtLength(Math.min(L,at+2));
+    car.style.left=q.x+'px'; car.style.top=q.y+'px';
+    car.firstElementChild.style.transform=`rotate(${Math.atan2(q2.y-q.y,q2.x-q.x)*180/Math.PI+90}deg)`;
+    let k=ends.findIndex(e=>at<e-0.01); if(k<0) k=steps.length-1;
+    const next=steps[Math.min(k+1,steps.length-1)], left=(ends[k]-at)*M_PER_UNIT;
+    document.querySelectorAll('#steps li').forEach((li,j)=>li.classList.toggle('cur',j===Math.min(k+1,steps.length-1)));
+    banner.innerHTML = f<1 ? `<span>${white(TURN[next.turn])}</span><div><b>${next.turn==='end'?esc(p.name):esc(next.text)}</b><small>in ${fmtLen(Math.max(10,left))} · ${Math.max(1,Math.round(p.r.mins*(1-f)))} min to go</small></div>`
+                           : `<span>${white(TURN.end)}</span><div><b>You have arrived</b><small>${esc(p.name)}</small></div>`;
+    banner.classList.add('on');
+    if(f<1) S.nav.raf=requestAnimationFrame(tick); else { S.nav=null; $('[data-start]').textContent='Done'; toast(`Arrived at ${p.name} (demo)`); }
+  };
+  S.nav.raf=requestAnimationFrame(tick);
 }
 
 /* ---------------- add form ---------------- */
@@ -388,7 +580,7 @@ function openForm(cat){
     <div class="fields">
       <div class="f"><label for="fd">Description</label><input id="fd" name="t" placeholder="${CAT[cat].sugs[0]}" maxlength="40"></div>
       <div class="sugs">${CAT[cat].sugs.map(s=>`<button type="button" data-sug="${esc(s)}">${esc(s)}</button>`).join('')}</div>
-      <div class="f"><label for="fp">Where</label><input id="fp" name="p" placeholder="Optional, e.g. BP Brooklyn" maxlength="40"></div>
+      <div class="f"><label for="fp">Where</label><input id="fp" name="p" placeholder="Optional, e.g. Shell, Koramangala" maxlength="40"></div>
       <div class="two"><div class="f"><label for="fa">Amount (₹)</label><input id="fa" name="a" inputmode="numeric" placeholder="Amount"></div>
         <div class="f"><label for="fdt">Date</label><select id="fdt" name="d">${Array.from({length:new Date(2017,S.m+1,0).getDate()},(_,i)=>i+1).filter(x=>S.m!==TODAY.m||x<=TODAY.d).map(x=>`<option value="${x}" ${x===d?'selected':''}>${x} ${MONTHS[S.m].slice(0,3)}</option>`).join('')}</select></div></div>
       <button type="button" class="photo" data-photo><span class="ph" id="ph">${IC.cam}</span><span id="phT">Add photo of the bill</span></button>
@@ -402,7 +594,7 @@ function validate(){ const f=$('#form'); const ok=+f.a.value>0; $('#saveBtn').di
 
 /* ---------------- overlays ---------------- */
 function scrim(on){ $('#scrim').classList.toggle('on',on); }
-function closeAll(){ $('#sheet').classList.remove('on'); $('#drawer').classList.remove('on'); scrim(false); }
+function closeAll(){ const cb=$('.carbtn'); if(cb) cb.setAttribute('aria-expanded','false'); $('#sheet').classList.remove('on'); $('#drawer').classList.remove('on'); scrim(false); }
 function sheet(h){ const s=$('#sheet'); s.innerHTML='<div class="grab"></div>'+h; s.classList.add('on'); scrim(true); }
 let tt; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('on'),2400); }
 function drawer(){
@@ -414,12 +606,17 @@ function drawer(){
     <p class="fine">Caralta, designed at Clarice Technologies. Rebuilt as an interactive portfolio prototype with sample data.</p>`;
 }
 function reminders(){
-  const c=car();
+  const c=car(), nextSvc=Math.ceil((c.km+1)/10000)*10000;
   sheet(`<h3>Reminders for ${esc(c.name)}</h3>
-    <div class="rem">${ci('service')}<div><b>Service due</b><span>Next general service at ${(Math.ceil(c.km/5000)*5000).toLocaleString('en-IN')} Kms, about ${Math.ceil(c.km/5000)*5000-c.km} Kms away</span></div><span class="when" style="color:var(--svc)">Soon</span></div>
-    <div class="rem">${ci('repair')}<div><b>Insurance renewal</b><span>Policy ends on 2 Jan. Compare quotes before it lapses.</span></div><span class="when" style="color:var(--rep)">25 days</span></div>
-    <div class="rem">${ci('gas')}<div><b>Fuel spend is up</b><span>You spent ${inr(sumBy(monthExp(),'gas'))} on gas in ${MONTHS[S.m]}. Reliance, 1.2 Kms away, is the cheapest near you.</span></div><span class="when" style="color:var(--gas)">Tip</span></div>`);
+    <div class="rem">${ci('service')}<div><b>Service due</b><span>Next general service at ${nextSvc.toLocaleString('en-IN')} Kms, about ${(nextSvc-c.km).toLocaleString('en-IN')} Kms away</span></div><span class="when" style="color:var(--svc)">${nextSvc-c.km<1000?'Soon':'Later'}</span></div>
+    <div class="rem">${ci('repair')}<div><b>Insurance renewal</b><span>Policy ends on ${c.ins}. Compare quotes before it lapses.</span></div><span class="when" style="color:var(--rep)">${c.insDays} days</span></div>
+    <div class="rem">${ci('gas')}<div><b>Fuel this month</b><span>You spent ${inr(sumBy(monthExp(),'gas'))} on petrol in ${MONTHS[S.m]}. ${esc(PLACES[0].name)}, ${PLACES[0].km} km away, is the cheapest near you.</span></div><span class="when" style="color:var(--gas)">Tip</span></div>`);
   if(!S.seen){ S.seen=true; const b=$('#bellN'); if(b) b.remove(); }
+}
+function carSwitcher(){
+  sheet(`<h3>Your cars</h3><div class="cars">${Object.entries(CARS).map(([k,c])=>`<button class="carrow" data-car="${k}">${c.img?`<img src="${c.img}" alt="">`:`<span class="th">${IC.car('#9aa0ab')}</span>`}<span class="t"><b>${esc(c.name)}</b><small>${esc(c.model)} · ${c.km.toLocaleString('en-IN')} Kms</small></span>${S.car===k?`<span class="ck">${IC.check.replace('width="20" height="15"','width="12" height="9"')}</span>`:''}</button>`).join('')}
+    <button class="carrow add" data-demo="Adding a new car"><span class="th">${IC.plus}</span><span class="t">Add a car</span></button></div>`);
+  $('.carbtn').setAttribute('aria-expanded','true');
 }
 function detail(id){
   const e=EXP.find(x=>x.id==id);
@@ -429,17 +626,18 @@ function detail(id){
 }
 
 /* ---------------- render + paging ---------------- */
-function renderAll(){ $('#carName').textContent=car().name; overview(); expenses(); mapPage(); drawer(); }
+function renderAll(){ $('#carName').textContent=car().name; $('.carbtn').setAttribute('aria-label',`${car().name}, switch car`); overview(); expenses(); mapPage(); drawer(); }
 const pager=$('#pager');
 function goPage(i,smooth=true){ pager.scrollTo({left:i*pager.clientWidth,behavior:smooth?'smooth':'auto'}); }
 pager.addEventListener('scroll',()=>{ const i=Math.round(pager.scrollLeft/pager.clientWidth); if(i!==S.page){ S.page=i; document.querySelectorAll('#dots button').forEach((b,j)=>b.classList.toggle('on',j===i)); } },{passive:true});
-addEventListener('resize',()=>{ goPage(S.page,false); drawRoute(); });
+addEventListener('resize',()=>{ goPage(S.page,false); layoutMap(false); });
 
 document.addEventListener('click',e=>{
   const t=e.target.closest('button'); if(e.target.id==='scrim'){ closeAll(); return; }
   if(!t) return; const ds=t.dataset;
   if('menu' in ds){ $('#drawer').classList.add('on'); scrim(true); return; }
   if('bell' in ds){ reminders(); return; }
+  if('switch' in ds){ carSwitcher(); return; }
   if(ds.page!==undefined){ goPage(+ds.page); return; }
   if(ds.mon){ const m=S.m+ +ds.mon; if(m<minMonth()||m>maxMonth()) return; S.m=m; S.lastNew=null; overview(); expenses(); return; }
   if(ds.cat){ S.filter=ds.cat; expenses(); goPage(1); return; }
@@ -453,12 +651,14 @@ document.addEventListener('click',e=>{
   if(ds.exp){ detail(ds.exp); return; }
   if(ds.del){ const i=EXP.findIndex(x=>x.id==ds.del); const x=EXP.splice(i,1)[0]; closeAll(); overview(); expenses(); toast(`Deleted ${x.title} (${inr(x.amt)})`); return; }
   if('closesheet' in ds){ closeAll(); return; }
-  if(ds.car){ S.car=ds.car; S.m=10; S.filter='all'; S.lastNew=null; closeAll(); renderAll(); toast(`Showing ${car().name}`); return; }
+  if(ds.car){ if(ds.car===S.car){ closeAll(); return; } S.car=ds.car; S.m=10; S.filter='all'; S.lastNew=null; closeAll(); renderAll(); toast(`Showing ${car().name}`); return; }
   if(ds.demo){ closeAll(); toast(`${ds.demo} isn’t part of this prototype`); return; }
-  if(ds.mf){ S.mapFilter=ds.mf; if(S.place!=null && ds.mf!=='all' && PLACES[S.place].cat!==ds.mf) S.place=null; mapPage(); return; }
-  if(ds.place!==undefined){ const i=+ds.place; S.place = S.place===i?null:i; mapPage(); return; }
+  if(ds.mf){ S.mapFilter=ds.mf; if(S.place!=null && ds.mf!=='all' && PLACES[S.place].cat!==ds.mf){ stopNav(); S.place=null; S.dir=false; } mapPage(); return; }
+  if(ds.place!==undefined){ const i=+ds.place; stopNav(); S.dir=false; S.place = S.place===i?null:i; mapPage(); return; }
+  if('dirx' in ds){ closeDir(); return; }
+  if('start' in ds){ if(S.nav||t.textContent==='Done'){ closeDir(); } else startNav(); return; }
   if('call' in ds){ toast(`Calling ${PLACES[S.place].name} (demo)`); return; }
-  if('nav' in ds){ toast(`Directions to ${PLACES[S.place].name} · ${PLACES[S.place].km} Kms (demo)`); return; }
+  if('nav' in ds){ openDir(); return; }
 });
 document.addEventListener('input',e=>{ if(e.target.form&&e.target.form.id==='form'){ if(e.target.name==='a') e.target.value=e.target.value.replace(/\D/g,'').slice(0,6); validate(); } });
 $('#form').addEventListener('submit',e=>{
