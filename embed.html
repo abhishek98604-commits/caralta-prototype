@@ -15,7 +15,7 @@ body{font-family:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;col
 .stage{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
 .wrap{display:flex;flex-direction:column;align-items:center;gap:18px;transform-origin:top center}
 /* dark phone on a light grey background */
-.phone{width:386px;padding:12px;border-radius:56px;background:#1e1e28;box-shadow:0 30px 60px -24px rgba(0,0,0,.35);position:relative}
+.phone{width:386px;flex:none;padding:12px;border-radius:56px;background:#1e1e28;box-shadow:0 30px 60px -24px rgba(0,0,0,.35);position:relative}
 .phone::before,.phone::after{content:"";position:absolute;width:3px;border-radius:2px;background:#131319}
 .phone::before{left:-3px;top:140px;height:60px}
 .phone::after{right:-3px;top:180px;height:84px}
@@ -29,7 +29,6 @@ iframe{flex:1;width:100%;border:0;display:block;background:#fff}
 .cap b{display:block;font-size:15px;font-weight:700;color:#1e1e28}
 .cap span{display:block;font-size:13px;color:#787887;margin-top:3px}
 .note{font-size:12px;color:#9a9aa6;margin-top:16px;text-align:center}
-@media (max-width:420px){.phone{width:100%;max-width:386px}}
 </style>
 </head>
 <body>
